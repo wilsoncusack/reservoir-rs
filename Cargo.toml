@@ -4,7 +4,7 @@ version = "0.1.0"
 edition = "2021"
 description = "Rust client for http://api.reservoir.tools/"
 license = "MIT"
-repository = "https://github.com/rust-lang/cargo/"
+repository = "https://github.com/wilsoncusack/reservoir-rs"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
