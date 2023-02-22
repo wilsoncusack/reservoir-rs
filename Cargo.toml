@@ -2,7 +2,7 @@
 name = "reservoir"
 version = "0.1.0"
 edition = "2021"
-description = "rust client for http://api.reservoir.tools/"
+description = "Rust client for http://api.reservoir.tools/"
 license = "MIT"
 repository = "https://github.com/rust-lang/cargo/"
 
