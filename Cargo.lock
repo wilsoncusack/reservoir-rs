@@ -1871,7 +1871,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "reservoir"
+name = "reservoir-nft"
 version = "0.1.0"
 dependencies = [
  "ethers",
