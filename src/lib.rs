@@ -1,8 +1,4 @@
-mod client;
-mod collections;
-mod oracle;
-mod orders;
-
-pub use client::{Chain, Client};
-pub use oracle::PriceKind;
-pub use orders::{Amount, BidsResponse, Criteria, Order, Price, SortOption};
+pub mod client;
+pub mod collections;
+pub mod oracle;
+pub mod orders;
