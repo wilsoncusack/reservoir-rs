@@ -1,34 +1,34 @@
 use serde::{de::DeserializeOwned, Serialize};
 
 pub enum Chain {
-    Ethereum, 
-    Goerli, 
+    Ethereum,
+    Goerli,
     Optimism,
-    Polygon
+    Polygon,
 }
 
 pub struct Client {
     client: reqwest::Client,
     base_url: String,
-    api_key: String
+    api_key: String,
 }
 
 impl Client {
-    fn new(chain: Chain, api_key: String) -> Self {
+    pub fn new(chain: Chain, api_key: String) -> Self {
         Self {
             client: reqwest::Client::new(),
             base_url: base_url_for_chain(chain),
-            api_key: api_key
+            api_key: api_key,
         }
     }
 }
 
 fn base_url_for_chain(chain: Chain) -> String {
-    let prefix = match chain{
-        Chain::Ethereum=>"",
-        Chain::Goerli=>"-goerli",
-        Chain::Optimism=>"-optimism",
-        Chain::Polygon=>"-polygon",
+    let prefix = match chain {
+        Chain::Ethereum => "",
+        Chain::Goerli => "-goerli",
+        Chain::Optimism => "-optimism",
+        Chain::Polygon => "-polygon",
     };
     format!("https://api{}.reservoir.tools", prefix)
 }

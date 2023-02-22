@@ -35,24 +35,17 @@ pub struct OracleMessage {
 }
 
 impl crate::client::Client {
-    async fn max_collection_bid(
+    pub async fn max_collection_bid(
         &self,
         collection: &str,
         price_kind: PriceKind,
-        quote_currency: &str,
+        quote_currency: Option<&str>,
         twap_seconds: Option<u32>,
     ) -> Result<OracleResponse, eyre::Error> {
         let url = "/oracle/collections/top-bid/v2";
         let mut query: Vec<(String, String)> = vec![
-            (
-                QueryParam::Collection.to_string(),
-                collection.to_string(),
-            ),
+            (QueryParam::Collection.to_string(), collection.to_string()),
             (QueryParam::Kind.to_string(), price_kind.to_string()),
-            (
-                QueryParam::Currency.to_string(),
-                quote_currency.to_string(),
-            ),
         ];
         if let Some(twap_seconds) = twap_seconds {
             query.push((
@@ -60,8 +53,9 @@ impl crate::client::Client {
                 twap_seconds.to_string(),
             ))
         }
+        if let Some(quote_currency) = quote_currency {
+            query.push((QueryParam::Currency.to_string(), quote_currency.to_string()))
+        }
         Ok(self.get::<_, OracleResponse>(&url, query).await?)
     }
 }
-
-
