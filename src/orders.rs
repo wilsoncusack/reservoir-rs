@@ -72,9 +72,8 @@ impl crate::client::Client {
         continuation: Option<String>,
     ) -> Result<BidsResponse, eyre::Error> {
         let url = "/orders/bids/v5";
-        let mut query: Vec<(String, String)> = vec![
-            (QueryParam::Collection.to_string(), collection.to_string()),
-        ];
+        let mut query: Vec<(String, String)> =
+            vec![(QueryParam::Collection.to_string(), collection.to_string())];
         if let Some(limit) = limit {
             query.push((QueryParam::Limit.to_string(), limit.to_string()))
         }
@@ -94,9 +93,13 @@ mod tests {
     #[tokio::test]
     async fn price_in_atomic_units_computes_correctly() {
         let c = client::Client::new(client::Chain::Ethereum, "demo-api-key".to_string());
-        c
-            .bids(&"0x8d04a8c79ceb0889bdd12acdf3fa9d207ed3ff63", None, None, None)
-            .await
-            .unwrap();
+        c.bids(
+            &"0x8d04a8c79ceb0889bdd12acdf3fa9d207ed3ff63",
+            None,
+            None,
+            None,
+        )
+        .await
+        .unwrap();
     }
 }
