@@ -81,7 +81,6 @@ impl crate::client::Client {
             query.push((QueryParam::SortBy.to_string(), sort_by.to_string()));
         }
         if let Some(continuation) = continuation {
-            println!("in here {}", continuation);
             query.push((QueryParam::Continuation.to_string(), continuation));
         }
         Ok(self.get::<_, BidsResponse>(&url, query).await?)
