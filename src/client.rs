@@ -43,7 +43,7 @@ impl Client {
             .client
             .get(format!("{}{}", self.base_url, route))
             .query(&query)
-            .header("api_key", self.api_key.clone())
+            .header("x-api-key", self.api_key.clone())
             .send()
             .await?
             .json::<D>()
