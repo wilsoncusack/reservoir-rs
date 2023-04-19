@@ -24,11 +24,14 @@ pub struct BidsResponse {
 }
 
 #[derive(Deserialize)]
+#[serde(rename_all = "camelCase")]
 pub struct Order {
     pub id: String,
     pub kind: String,
     pub price: Price,
     pub criteria: Criteria,
+    pub quantity_remaining: i64,
+    pub quantity_filled: i64
 }
 
 #[derive(Deserialize)]
@@ -36,7 +39,7 @@ pub struct Order {
 pub struct Price {
     pub amount: Amount,
     pub net_amount: NetAmount,
-    pub currency: Currency,
+    pub currency: Currency
 }
 
 #[derive(Deserialize)]
