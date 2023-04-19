@@ -8,6 +8,7 @@ enum QueryParam {
     Limit,
     SortBy,
     Continuation,
+    IncludeRawData
 }
 
 #[derive(Display)]
@@ -31,7 +32,8 @@ pub struct Order {
     pub price: Price,
     pub criteria: Criteria,
     pub quantity_remaining: i64,
-    pub quantity_filled: i64
+    pub quantity_filled: i64,
+    pub raw_data: Option<RawData>
 }
 
 #[derive(Deserialize)]
@@ -66,12 +68,27 @@ pub struct Criteria {
     pub kind: String,
 }
 
+#[derive(Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct RawData {
+    pub price_points: Option<Vec<PricePoint>>
+}
+
+#[derive(Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct PricePoint {
+    pub price: String, 
+    pub bidder_count: i64,
+    pub executable_size: i64
+}
+
 impl crate::client::Client {
     pub async fn bids(
         &self,
         collection: &str,
         sort_by: Option<SortOption>,
         limit: Option<u64>,
+        include_raw_data: Option<bool>,
         continuation: Option<String>,
     ) -> Result<BidsResponse, eyre::Error> {
         let url = "/orders/bids/v5";
@@ -82,6 +99,9 @@ impl crate::client::Client {
         }
         if let Some(sort_by) = sort_by {
             query.push((QueryParam::SortBy.to_string(), sort_by.to_string()));
+        }
+        if let Some(include_raw_data) = include_raw_data {
+            query.push((QueryParam::IncludeRawData.to_string(), include_raw_data.to_string()));
         }
         if let Some(continuation) = continuation {
             query.push((QueryParam::Continuation.to_string(), continuation));
@@ -99,6 +119,7 @@ mod tests {
             &"0x8d04a8c79ceb0889bdd12acdf3fa9d207ed3ff63",
             None,
             None,
+            Some(true),
             None,
         )
         .await
