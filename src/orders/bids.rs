@@ -18,13 +18,13 @@ pub enum SortOption {
     CreatedAt,
 }
 
-#[derive(Deserialize)]
+#[derive(Deserialize, Debug, Clone)]
 pub struct BidsResponse {
     pub orders: Vec<Order>,
     pub continuation: Option<String>,
 }
 
-#[derive(Deserialize)]
+#[derive(Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct Order {
     pub id: String,
@@ -36,7 +36,7 @@ pub struct Order {
     pub raw_data: Option<RawData>,
 }
 
-#[derive(Deserialize)]
+#[derive(Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct Price {
     pub amount: Amount,
@@ -44,37 +44,37 @@ pub struct Price {
     pub currency: Currency,
 }
 
-#[derive(Deserialize)]
+#[derive(Deserialize, Debug, Clone)]
 pub struct Amount {
     pub usd: f64,
     pub native: f64,
 }
 
-#[derive(Deserialize)]
+#[derive(Deserialize, Debug, Clone)]
 pub struct NetAmount {
     pub raw: String,
     pub decimal: f64,
     pub native: f64,
 }
 
-#[derive(Deserialize)]
+#[derive(Deserialize, Debug, Clone)]
 pub struct Currency {
     pub contract: String,
     pub decimals: u8,
 }
 
-#[derive(Deserialize)]
+#[derive(Deserialize, Debug, Clone)]
 pub struct Criteria {
     pub kind: String,
 }
 
-#[derive(Deserialize)]
+#[derive(Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct RawData {
     pub price_points: Option<Vec<PricePoint>>,
 }
 
-#[derive(Deserialize)]
+#[derive(Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct PricePoint {
     pub price: String,

@@ -20,13 +20,13 @@ enum QueryParam {
     Collection,
 }
 
-#[derive(Deserialize)]
+#[derive(Deserialize, Debug, Clone)]
 pub struct OracleResponse {
     pub price: f64,
     pub message: OracleMessage,
 }
 
-#[derive(Deserialize)]
+#[derive(Deserialize, Debug, Clone)]
 pub struct OracleMessage {
     pub id: String,
     pub payload: Bytes,

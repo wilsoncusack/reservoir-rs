@@ -15,12 +15,12 @@ pub enum DepthSide {
     Sell,
 }
 
-#[derive(Deserialize, Clone)]
+#[derive(Deserialize, Debug, Clone)]
 pub struct Response {
     pub depth: Vec<DepthDetail>,
 }
 
-#[derive(Deserialize, Clone)]
+#[derive(Deserialize, Debug, Clone)]
 pub struct DepthDetail {
     pub price: f64,
     pub quantity: i64,
