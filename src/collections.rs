@@ -1,4 +1,4 @@
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 use strum_macros::Display;
 
 #[derive(Display)]
@@ -12,7 +12,7 @@ pub struct Response {
     pub collections: Vec<Collection>,
 }
 
-#[derive(Deserialize, Debug, Clone)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct Collection {
     pub id: String,
@@ -24,7 +24,7 @@ pub struct Collection {
     pub volume: VolumeStats,
 }
 
-#[derive(Deserialize, Debug, Clone)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct VolumeStats {
     #[serde(rename = "1day")]
     pub one_day: f64,
