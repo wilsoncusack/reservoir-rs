@@ -8,7 +8,7 @@ enum QueryParam {
     Limit,
     SortBy,
     Continuation,
-    IncludeRawData
+    IncludeRawData,
 }
 
 #[derive(Display)]
@@ -33,7 +33,7 @@ pub struct Order {
     pub criteria: Criteria,
     pub quantity_remaining: i64,
     pub quantity_filled: i64,
-    pub raw_data: Option<RawData>
+    pub raw_data: Option<RawData>,
 }
 
 #[derive(Deserialize)]
@@ -41,7 +41,7 @@ pub struct Order {
 pub struct Price {
     pub amount: Amount,
     pub net_amount: NetAmount,
-    pub currency: Currency
+    pub currency: Currency,
 }
 
 #[derive(Deserialize)]
@@ -71,15 +71,15 @@ pub struct Criteria {
 #[derive(Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct RawData {
-    pub price_points: Option<Vec<PricePoint>>
+    pub price_points: Option<Vec<PricePoint>>,
 }
 
 #[derive(Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct PricePoint {
-    pub price: String, 
+    pub price: String,
     pub bidder_count: i64,
-    pub executable_size: i64
+    pub executable_size: i64,
 }
 
 impl crate::client::Client {
@@ -101,7 +101,10 @@ impl crate::client::Client {
             query.push((QueryParam::SortBy.to_string(), sort_by.to_string()));
         }
         if let Some(include_raw_data) = include_raw_data {
-            query.push((QueryParam::IncludeRawData.to_string(), include_raw_data.to_string()));
+            query.push((
+                QueryParam::IncludeRawData.to_string(),
+                include_raw_data.to_string(),
+            ));
         }
         if let Some(continuation) = continuation {
             query.push((QueryParam::Continuation.to_string(), continuation));
@@ -113,7 +116,7 @@ impl crate::client::Client {
 mod tests {
     use crate::client;
     #[tokio::test]
-    async fn price_in_atomic_units_computes_correctly() {
+    async fn fetches_bids_without_error() {
         let c = client::Client::new(client::Chain::Ethereum, "demo-api-key".to_string());
         c.bids(
             &"0x8d04a8c79ceb0889bdd12acdf3fa9d207ed3ff63",
