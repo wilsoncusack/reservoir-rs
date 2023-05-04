@@ -1,5 +1,5 @@
 use ethers::types::Bytes;
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 use strum_macros::Display;
 
 #[derive(Display)]
@@ -20,13 +20,13 @@ enum QueryParam {
     Collection,
 }
 
-#[derive(Deserialize, Debug, Clone)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct OracleResponse {
     pub price: f64,
     pub message: OracleMessage,
 }
 
-#[derive(Deserialize, Debug, Clone)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct OracleMessage {
     pub id: String,
     pub payload: Bytes,

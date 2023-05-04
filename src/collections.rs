@@ -7,7 +7,7 @@ enum QueryParam {
     Id,
 }
 
-#[derive(Deserialize, Debug, Clone)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Response {
     pub collections: Vec<Collection>,
 }
